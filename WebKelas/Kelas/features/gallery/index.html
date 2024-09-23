@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload</title>
+  <link rel="stylesheet" href="gallery/stylegallery.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Upload Photo and Video</h1>
+    <form action="/uploads" method="post" enctype="multipart/form-data">
+        <label for="photo">Upload Photo:</label>
+        <input type="file" id="photo" name="media" accept="image/*" ><br><br>
+
+        <label for="video">Upload Video:</label>
+        <input type="file" id="video" name="video" accept="video/*" ><br><br>
+
+        <button type="submit">Upload</button>
+
+  <!-- <script src="main.js"></script> -->
+  <style>
+    
+  </style>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "express": "^5.0.0",
+    "mysql": "^2.18.1",
+    "tailwind": "^4.0.0"
+  }
+}

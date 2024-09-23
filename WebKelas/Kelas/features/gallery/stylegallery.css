@@ -1,0 +1,43 @@
+body{
+    background-color: #d24b24;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0; /* Remove default margin */
+}
+.wrapper {
+    background: rgb(247, 244, 244);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+h1 {
+    text-align: center;
+    color: #333;
+}
+label {
+    margin-top: 10px;
+    display: block;
+    font-weight: bold;
+    color: #555;
+}
+input[type="file"] {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(17, 9, 5);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
