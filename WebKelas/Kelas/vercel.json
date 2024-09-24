@@ -1,9 +1,10 @@
 {
     "version": 2,
     "builds": [
-      { "src": "conn.js", "use": "@vercel/node" }
+      { "src": "api/index.js", "use": "@vercel/node" }
     ],
     "routes": [
-      { "src": "/api/.*", "dest": "/api/hello.js" }
+      { "src": "/(.*)", "dest": "/api/index.js" }
     ]
   }
+  
