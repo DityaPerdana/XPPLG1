@@ -1,11 +1,11 @@
-var logg = require('./log.js');
+
 let items = document.querySelectorAll('.slider .list .item');
 let next = document.getElementById('next');
 let prev = document.getElementById('prev');
 let thumbnails = document.querySelectorAll('.thumbnail .item');
-let btnLogin = document.getElementById('login');
 
-btnLogin.addEventListener("click",startLog)
+
+
 // config param
 let countItem = items.length;
 let itemActive = 0;

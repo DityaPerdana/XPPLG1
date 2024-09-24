@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "node conn.js"
+  },
   "dependencies": {
     "body-parser": "^2.0.1",
     "ejs": "^3.1.10",

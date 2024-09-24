@@ -1,0 +1,1 @@
+i want to upload and save photo and videos to blob64 sqlite then i can view it in view.html the upload and view is seperate file,node js

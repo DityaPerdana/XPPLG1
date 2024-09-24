@@ -10,11 +10,7 @@
   <div class="wrapper">
     <h1>Upload Photo and Video</h1>
     <form action="/uploads" method="post" enctype="multipart/form-data">
-        <label for="photo">Upload Photo:</label>
-        <input type="file" id="photo" name="media" accept="image/*" ><br><br>
-
-        <label for="video">Upload Video:</label>
-        <input type="file" id="video" name="video" accept="video/*" ><br><br>
+      <input type="file" name="media" accept="image/*,video/*" required>
 
         <button type="submit">Upload</button>
 

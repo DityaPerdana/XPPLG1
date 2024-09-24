@@ -68,24 +68,53 @@ const upload = multer({ storage });
 
 // Upload endpoint
 app.post('/uploads', upload.single('media'), (req, res) => {
-    const mediaType = req.file.mimetype.startsWith('image/') ? 'image' : 'video';
-    const data = req.file.buffer.toString('base64'); // Get the file buffer for BLOB
+    const mediaType = req.file.mimetype; // Get the actual MIME type from the uploaded file
+    const data = req.file.buffer.toString('base64'); // Convert the buffer to Base64
+
+    // Determine the media category based on the actual MIME type
+    const mediaCategory = mediaType.startsWith('image/') ? 'image' : mediaType.startsWith('video/') ? 'video' : null;
+
+    if (!mediaCategory) {
+        return res.status(400).send('Invalid media type. Please upload an image or video.');
+    }
 
     db.run(`INSERT INTO media (type, data) VALUES (?, ?)`, [mediaType, data], function(err) {
         if (err) {
             return res.status(500).send('Error saving to database.');
         }
-        // res.send("success");
-        res.redirect("/gallery/view.html")
+        res.redirect("/gallery/view.html"); // Redirect to the view page after successful upload
     });
 });
 
+
 // View page endpoint to get media as JSON
+// app.get('/api/media', (req, res) => {
+//     db.all(`SELECT * FROM media`, [], (err, rows) => {
+//         if (err) {
+//             return res.status(500).send('Error fetching data.');
+//         }
+//         res.json(rows); // Send JSON response
+//     });
+// });
 app.get('/api/media', (req, res) => {
-    db.all(`SELECT * FROM media`, [], (err, rows) => {
+    db.all("SELECT id, type, data FROM media", (err, rows) => {
         if (err) {
-            return res.status(500).send('Error fetching data.');
+            return res.status(500).json({ error: "Error retrieving media." });
         }
-        res.json(rows); // Send JSON response
+        res.json(rows.map(row => ({
+            id: row.id,
+            type: row.type,
+            data: row.data
+        })));
+    });
+});
+app.post('/api/delete', (req, res) => {
+    const { id } = req.body;
+    
+    db.run("DELETE FROM media WHERE id = ?", [id], function(err) {
+        if (err) {
+            return res.status(500).json({ error: "Error deleting media." });
+        }
+        res.json({ success: true });
     });
 });

@@ -55,22 +55,74 @@
     </style>
 
 <script>
-         fetch('/api/media')
+        //  fetch('/api/media')
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         const container = document.getElementById('mediaContainer');
+        //         data.forEach(media => {
+        //             const mediaElement = document.createElement(media.type === 'image' ? 'img' : 'video');
+                    
+        //             // Create the data URL using Base64
+        //             mediaElement.src = `data:${media.type};base64,${media.data}`;
+                    
+        //             mediaElement.controls = media.type === 'video'; // Add controls for videos
+        //             mediaElement.width = 300; // Set width for better view
+        //             container.appendChild(mediaElement);
+        //         });
+        //     })
+        //     .catch(err => console.error(err));
+        fetch('/api/media')
             .then(response => response.json())
             .then(data => {
                 const container = document.getElementById('mediaContainer');
                 data.forEach(media => {
-                    const mediaElement = document.createElement(media.type === 'image' ? 'img' : 'video');
-                    
+                    // const mediaElement = document.createElement(media.type.startsWith('image/') ? 'img' : 'video');
+                    const mediaElement = document.createElement(media.type.startsWith('image/') ? 'img' : media.type.startsWith('video/') ? 'video' : 'video');
+
                     // Create the data URL using Base64
                     mediaElement.src = `data:${media.type};base64,${media.data}`;
                     
-                    mediaElement.controls = media.type === 'video'; // Add controls for videos
+                    mediaElement.controls = media.type.startsWith('video/'); // Add controls for videos
                     mediaElement.width = 300; // Set width for better view
-                    container.appendChild(mediaElement);
+
+                    // Create an ID display
+                    const idDisplay = document.createElement('p');
+                    idDisplay.textContent = `ID: ${media.id}`;
+
+                    // Create a delete button
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.onclick = () => deleteMedia(media.id);
+
+                    // Append elements to the container
+                    const mediaContainer = document.createElement('div');
+                    mediaContainer.appendChild(idDisplay);
+                    mediaContainer.appendChild(mediaElement);
+                    mediaContainer.appendChild(deleteButton);
+                    container.appendChild(mediaContainer);
                 });
             })
             .catch(err => console.error(err));
+
+        function deleteMedia(id) {
+            fetch('/api/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Media deleted successfully!');
+                    location.reload(); // Reload to see the updated media list
+                } else {
+                    alert('Error deleting media.');
+                }
+            })
+            .catch(err => console.error(err));
+        }
     </script>
 </body>
 </html>
